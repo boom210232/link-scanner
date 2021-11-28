@@ -1,7 +1,8 @@
 from selenium import webdriver
-
-browser = webdriver.Chrome('/Users/boom/Desktop/link-scanner/chromedriver')
-browser.get('https://google.com')
+from urllib.request import urlopen
+from urllib import error
+from urllib.parse import urlparse
+import requests
 
 
 def get_links(url):
@@ -13,16 +14,25 @@ def get_links(url):
     """
     browser = webdriver.Chrome('/Users/boom/Desktop/link-scanner/chromedriver')  # Change to your own path in bracket.
     browser.get(url)
-    finder = browser.find_elements("//a[@href]")
 
 
 def is_valid_url(url: str):
-    pass
+    try:
+        opener = urlopen(url)
+        opener.close()
+
+    except (error.URLError, ValueError):
+        return False
+    except error.HTTPError as e:
+        if e.code != 403:  # 403 forbidden = have but can't access
+            return False
+    return True
 
 
-def invalid_urls(urllist: List):
-    pass
+# def invalid_urls(urllist: List):
+#     pass
 
 
 if __name__ == "__main__":
-    pass
+    print(is_valid_url("https://www.thaizeed.net/"))
+    print(is_valid_url("https://www.maimeeyoujing.co.th/"))
