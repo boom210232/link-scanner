@@ -1,8 +1,9 @@
 from selenium import webdriver
 from urllib.request import urlopen
 from urllib import error
+from selenium.webdriver.common.by import By
 from urllib.parse import urlparse
-import requests
+import sys
 
 
 def get_links(url):
@@ -12,8 +13,8 @@ def get_links(url):
         a list of all unique hyperlinks on the page,
         without page fragments or query parameters.
     """
-    browser = webdriver.Chrome('/Users/boom/Desktop/link-scanner/chromedriver')  # Change to your own path in bracket.
-    browser.get(url)
+    pass
+
 
 
 def is_valid_url(url: str):
@@ -29,10 +30,21 @@ def is_valid_url(url: str):
     return True
 
 
-# def invalid_urls(urllist: List):
-#     pass
+def invalid_urls(urllist):
+    """Validate the urls in urllist and return a new list containing
+    the invalid or unreachable urls.
+    """
+    invalid_links = []
+    for all_url in urllist:
+        if not is_valid_url(all_url):
+            invalid_links.append(all_url)
+    print(invalid_links)
+    return invalid_links
 
 
 if __name__ == "__main__":
-    print(is_valid_url("https://www.thaizeed.net/"))
-    print(is_valid_url("https://www.maimeeyoujing.co.th/"))
+    # print(is_valid_url("https://www.thaizeed.net/"))
+    # print(is_valid_url("https://www.maimeeyoujing.co.th/"))
+    # invalid_urls(["https://www.thaizeed.net/","https://www.maimeeyoujing.co.th/"])
+
+
